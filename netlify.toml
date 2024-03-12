@@ -15,6 +15,6 @@
 
 [template.environment]
     OPENAI_API_KEY="Specify your Open AI key"
-    MONGODB_ATLAS_URI="change to your URI"
-    MONGODB_DATABASE="netlify_chat_demo"
-    MONGODB_SOURCE_COLLECTION="github_repo"
+    MONGODB_ATLAS_URI="Specify your MongoDB Atlas URI"
+    MONGODB_DATABASE="The database name (eg. netlify_chat_demo ) "
+    MONGODB_SOURCE_COLLECTION="The context collection with embeddings (eg. context)"

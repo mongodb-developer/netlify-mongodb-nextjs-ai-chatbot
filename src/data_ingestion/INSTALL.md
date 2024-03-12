@@ -1,5 +1,7 @@
 # Ingest github data for the chat bot
 
+This script ingest data from a given github repo to the `context` collection used as a source of knowledge for the chat bot. 
+
 Install a mongodb shell `mongosh`:
 ```
 brew install mongosh
@@ -11,7 +13,7 @@ npm install langchain
 npm install ignore
 ```
 
-Replace your OPENAI_KEY intead `<YOUR_OPENAI_API>`
+Replace your OPENAI_KEY with the placeholder `<YOUR_OPENAI_API>`
 
 Connect to your cluster:
 ```
@@ -20,16 +22,16 @@ mongosh $MONGODB_ATLAS_URI
 
 Copy paste the script to load the data.
 
-This will create collection `github_repo` inside `netlify_chat_demo`
+This will create collection `context` inside `netlify_chat_demo`
 
-Create an vector index ontop of this collection:
+The script also create a vector index ontop of this collection:
 ```
 {
   "fields": [
     {
       "numDimensions": 1536,
       "path": "embedding",
-      "similarity": "cosine",
+      "similarity": "dotProduct",
       "type": "vector"
     }
   ]

@@ -20,16 +20,20 @@ const { OpenAIEmbeddings } = require('@langchain/openai'); // Import OpenAI embe
   // Load documents from GitHub
   const docs = await loader.load();
 
-// const url = "https://www.mongodb.com/developer/languages/javascript/nextjs-with-mongodb/"
-// // const compiledConvert = compile({ wordwrap: 130 }); // returns (text: string) => string;
-
-// // const loader = new RecursiveUrlLoader(url, {
-// //   compiledConvert,
-// //   maxDepth: 1,
-// // });
-
-// const docs = await loader.load();
-
+ // Build the vector index
+ db.context.createSearchIndex(
+    "vector_index",
+    "vectorSearch", //index type
+    {
+      fields: [
+        {
+          type: "vector",
+          numDimensions: 1536,
+          path: "embedding",
+          similarity: "dotProduct"
+        }]
+    }
+  );
 
   // Set up OpenAI embeddings
   const embeddings = new OpenAIEmbeddings({
@@ -47,17 +51,12 @@ const { OpenAIEmbeddings } = require('@langchain/openai'); // Import OpenAI embe
 
     use('netlify_chat_demo');
     console.log(`processing file ${doc.metadata.source} with embedding of ${respEmbed[0].length}`)
-    db.github_repo.insertOne({
+    db.context.insertOne({
       metadata: doc.metadata,
       pageContent: doc.pageContent,
       embedding: respEmbed[0]
     });
 
-   // db.github_repo.insertOne({
-      
-
-    // Process or store the embedding as needed
-    // e.g., store in MongoDB or perform further operations
   }
 
   // Additional processing or cleanup if necessary
