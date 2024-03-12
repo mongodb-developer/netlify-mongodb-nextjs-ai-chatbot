@@ -7,6 +7,9 @@ import { getVectorQuery, saveToDatabase } from '../../utils/database'
 // It also saves the message to the database
 export default async function createMessage(req: NextApiRequest, res: NextApiResponse) {
   const { messages, conversationId } = req.body
+  if (!process.env.OPENAI_API_KEY) {
+    throw new Error('OPENAI_API_KEY is not defined');
+  }
   const apiKey = process.env.OPENAI_API_KEY
   const url = 'https://api.openai.com/v1/chat/completions'
 

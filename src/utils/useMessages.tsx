@@ -23,22 +23,6 @@ export function MessagesProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const initializeChat = async () => {
 
-        try {
-          if (!process.env.OPENAI_API_KEY) {
-            throw new Error('OPENAI_API_KEY is not defined');
-          }
-          if (!process.env.MONGODB_ATLAS_URI) {
-            throw new Error('MONGODB_ATLAS_URI is not defined');
-          }
-          if (!process.env.MONGODB_DATABASE) {
-            throw new Error('MONGODB_DATABASE is not defined');
-          }
-          if (!process.env.MONGODB_SOURCE_COLLECTION) {
-            throw new Error('MONGODB_SOURCE_COLLECTION is not defined');
-          }
-        } catch (error: any) {
-          addToast({ title: 'An error occurred', description: error.message, type: 'error' })
-      }
       const systemMessage: ChatCompletionRequestMessage = {
         role: 'system',
         content: 'You are code repo expert assistat, trained by Open AI and MongoDB Atlas vector search. Please answer only in a given context. Otherwise note that you dont have enough infomation'

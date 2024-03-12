@@ -1,5 +1,7 @@
 import { ChatCompletionRequestMessage } from 'openai'
 
+
+
 // Run the user message through a RAG model to get the top 2 documents using OpenAI's API and the vector index
 
 export const sendMessage = async (conversationId : any,messages: ChatCompletionRequestMessage[]) => {

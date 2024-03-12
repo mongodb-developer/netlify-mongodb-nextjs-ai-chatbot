@@ -2,17 +2,22 @@ import { Double, MongoClient, ObjectId } from "mongodb";
 
 // MongoDB Client
 let db: MongoClient;
+
 const uri = process.env.MONGODB_ATLAS_URI || 'your_mongodb_uri_here'; // Replace with your MongoDB URI
 const dbName = process.env.MONGODB_DATABASE; // Replace with your database name
 const collectionName = 'messageHistory';
 
 const sourceCollection = process.env.MONGODB_SOURCE_COLLECTION || 'github_repo'
-const sourceDatabase = process.env.MONGODB_DATABASE || 'github_repo'
+const sourceDatabase = process.env.MONGODB_DATABASE
 
 // Initialize MongoDB Client
 export async function initDB() {
   try {
+  
     if (!db) {
+      if (!process.env.MONGODB_ATLAS_URI) {
+        throw new Error('MONGODB_ATLAS_URI is not defined');
+      }
       db = await MongoClient.connect(uri);
     }
   } catch (err) {
@@ -93,6 +98,12 @@ export async function getConversationHistory()
 {
   try {
     await initDB();
+    if (!process.env.MONGODB_DATABASE) {
+      throw new Error('MONGODB_DATABASE is not defined');
+    }
+    if (!process.env.MONGODB_SOURCE_COLLECTION) {
+      throw new Error('MONGODB_SOURCE_COLLECTION is not defined');
+    }
     const conversations = await db.db(dbName).collection(collectionName).find({}).sort({"_id" : -1}).limit(10).toArray();
     return conversations;
   } catch (err) {
