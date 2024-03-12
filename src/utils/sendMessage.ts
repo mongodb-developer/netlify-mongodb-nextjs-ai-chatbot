@@ -16,5 +16,6 @@ export const sendMessage = async (conversationId : any,messages: ChatCompletionR
     return await response.json()
   } catch (error) {
     console.log(error)
+    throw error;
   }
 }

@@ -14,6 +14,7 @@ export const newConversation = async () => {
         return await response.json()
     } catch (error) {
         console.log(error)
+        throw error;
     }
     }
 
@@ -29,5 +30,6 @@ export const getConversationHistory = async () => {
         return await response.json()
     } catch (error) {
         console.log(error)
+        throw error;
     }
     }

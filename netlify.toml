@@ -6,8 +6,15 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+
 [[redirects]]
-  from = "/_next/static/*"
-  to = "/static/:splat"
-  status = 301
-  force = true
+    from = "/_next/static/*"
+    to = "/static/:splat"
+    status = 301
+    force = true
+
+[template.environment]
+    OPENAI_API_KEY="Specify your Open AI key"
+    MONGODB_ATLAS_URI="change to your URI"
+    MONGODB_DATABASE="netlify_chat_demo"
+    MONGODB_SOURCE_COLLECTION="github_repo"

@@ -11,7 +11,7 @@ type Props = {
 const Layout = ({
   children,
   title = 'MongoDB Starter - AI Chatbot',
-  description = 'A Next.js starter kit with TypeScript, MongoDB Atlas and OpenAI',
+  description = 'A Next.js starter kit with TypeScript, MongoDB Atlas and OpenAI GPT.',
   favicon = '/img/logo.png'
 }: Props) => (
   <div className="font-basier-circle">
