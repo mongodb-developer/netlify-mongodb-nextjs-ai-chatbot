@@ -13,14 +13,14 @@ npm install langchain
 npm install ignore
 ```
 
-Replace your OPENAI_KEY with the placeholder `<YOUR_OPENAI_API>`
+Use script `mongosh_ingest.js` and replace your OPENAI_KEY with the placeholder `<YOUR_OPENAI_API>`
 
 Connect to your cluster:
 ```
 mongosh $MONGODB_ATLAS_URI
 ```
 
-Copy paste the script to load the data.
+Copy paste  script `mongosh_ingest.js` to load the data.
 
 This will create collection `context` inside `netlify_chat_demo`
 
