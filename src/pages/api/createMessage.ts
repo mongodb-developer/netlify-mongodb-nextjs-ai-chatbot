@@ -20,20 +20,24 @@ export default async function createMessage(req: NextApiRequest, res: NextApiRes
 
     // Get the top 5 movies that are closest to the user's message
     const documents = await getVectorQuery(embedding);
-
+    let context: string;
+    if (documents.length > 0) {
+      context = 'Code you must consider: ' + JSON.stringify(documents) + " Also prompt the source URL for the code including 'metadata.source' file."
+    }
+    else {
+      context = `Notify the user there is no context from the database, make sure they verify if the embeedings are set on collection ${process.env.MONGODB_SOURCE_COLLECTION}`
+    }
     // Add a system message to the messages array
     messages.push({
       role: 'system',
-      content: 'Code you must consider: ' + JSON.stringify(documents) + " Also prompt the source URL for the code including 'metadata.source' file."
+      content: context
     })
 
     
     // Send the user's message to OpenAI's API
     const body = JSON.stringify({
       messages,
-      model: 'gpt-3.5-turbo-0125',
-      temperature: 0
-      ,
+      model: 'gpt-3.5-turbo',
       stream: false
     })
 
