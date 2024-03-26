@@ -66,9 +66,6 @@ export async function saveToDatabase(conversationId: ObjectId, messages: Message
 export async function getVectorQuery(embedding: Double[]) {
   try {
     await initDB();
-    console.log("sourceCollection", sourceCollection)
-    console.log("sourceDatabase", sourceDatabase)
-    console.log("embedding", embedding)
     const pipeline = [
         { 
             "$vectorSearch": {
@@ -88,8 +85,6 @@ export async function getVectorQuery(embedding: Double[]) {
     const documents = await db.db(sourceDatabase).collection(sourceCollection).aggregate(pipeline).toArray()
 
     const testDoc = await db.db(sourceDatabase).collection(sourceCollection).findOne({});
-    console.log("documents", documents)
-    console.log("testDoc", testDoc)
     return documents;
 } catch (err) {
     console.error(err);
