@@ -30,6 +30,9 @@ The application uses the following components:
 - Verify that the IP's are whitelisted
 - You have your connection string and credentials
 2. Import data into the source collection which will be used as a vector store for the RAG of the chatbot. See [guide](src/data_ingestion/INSTALL.md).
+-- OR --
+You can import the hosted file from here (already with embeddings) `/src/data_ingestion/netlify_chat_demo.context.json` into a collection (eg . `context` in database: `netlify_chat_demo`).
+
 3. Create the Atlas Vector Index named `vector_index` on that collection, example:
 ```
 {
