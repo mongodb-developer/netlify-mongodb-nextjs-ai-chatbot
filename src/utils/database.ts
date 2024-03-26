@@ -84,7 +84,6 @@ export async function getVectorQuery(embedding: Double[]) {
     }]
     const documents = await db.db(sourceDatabase).collection(sourceCollection).aggregate(pipeline).toArray()
 
-    const testDoc = await db.db(sourceDatabase).collection(sourceCollection).findOne({});
     return documents;
 } catch (err) {
     console.error(err);
