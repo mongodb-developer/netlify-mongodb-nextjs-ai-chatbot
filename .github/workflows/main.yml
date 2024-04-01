@@ -1,0 +1,35 @@
+name: End-to-End Tests
+
+on: [push]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Create .env.local file
+        run: |
+          echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env.local
+          echo MONGODB_ATLAS_URI=${{ secrets.MONGODB_ATLAS_URI }} >> .env.local
+          echo MONGODB_DATABASE=netlify_chat_demo >> .env.local
+          echo MONGODB_SOURCE_COLLECTION=github_repo >> .env.local
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start server
+        run: npx netlify-cli serve &
+        env:
+          CI: true
+
+      - name: Run Cypress tests
+        run: npm run cypress:run
+        env:
+          CI: true
