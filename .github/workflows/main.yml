@@ -21,7 +21,7 @@ jobs:
         run: npm install -g netlify-cli
 
       - name: Start Netlify server in the background
-        run: netlify serve &> /dev/null &
+        run: netlify serve &> netlify.log &
         shell: bash
 
       - name: Wait for Netlify server to be ready
@@ -42,3 +42,10 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots/
+
+      - name: Upload Netlify logs
+        uses: actions/upload-artifact@v2
+        if: always() # or use `failure()` to upload only if the job fails
+        with:
+          name: netlify-logs
+          path: netlify.log
