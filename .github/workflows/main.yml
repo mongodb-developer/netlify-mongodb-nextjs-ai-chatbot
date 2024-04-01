@@ -12,22 +12,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18.14.0'
+          node-version: '18' # or the version required by netlify-cli
 
-      - name: Create .env.local file
-        run: |
-          echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env.local
-          echo MONGODB_ATLAS_URI=${{ secrets.MONGODB_ATLAS_URI }} >> .env.local
-          echo MONGODB_DATABASE=netlify_chat_demo >> .env.local
-          echo MONGODB_SOURCE_COLLECTION=github_repo >> .env.local
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli@17.21.1
 
-      - name: Install dependencies
+      - name: Install project dependencies
         run: npm install
 
-      - name: Start server
-        run: npx netlify-cli serve &
-        env:
-          CI: true
+      - name: Start Netlify server
+        run: netlify-cli serve &
+
+      - name: Wait for Netlify server to be ready
+        run: |
+          until curl --output /dev/null --silent --head --fail http://localhost:8888; do
+            printf '.'
+            sleep 5
+          done
 
       - name: Run Cypress tests
         run: npm run cypress:run
