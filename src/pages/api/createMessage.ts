@@ -20,9 +20,9 @@ export default async function createMessage(req: NextApiRequest, res: NextApiRes
 
     // Get the top 5 movies that are closest to the user's message
     const documents = await getVectorQuery(embedding);
-    let context: string = `Taking into account the messages from the user ${JSON.stringify(messages)}, the following code is relevant:`
+    let context: string = `Taking into account the last messages from the user ${JSON.stringify(messages)}, the following code is relevant:`
     if (documents.length > 0) {
-      context = context + ' Code you must consider: ' + JSON.stringify(documents) + " Also prompt the source URL for the code including 'metadata.source' file."
+      context = context + ' Code you must consider: ' + JSON.stringify(documents) + " Also prompt the source URL for the code including 'metadata.source' file. If the code is unrelated to the user message answer as you like."
     }
     else {
       context = context + ` Notify the user there is no context from the database, make sure they verify if the embeedings are set on collection ${process.env.MONGODB_SOURCE_COLLECTION}`
