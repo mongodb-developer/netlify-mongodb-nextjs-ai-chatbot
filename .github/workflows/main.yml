@@ -14,14 +14,19 @@ jobs:
         with:
           node-version: '18' # or the version required by netlify-cli
 
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli@17.21.1
+   
 
       - name: Install project dependencies
         run: npm install
 
-      - name: Start Netlify server
-        run: netlify-cli serve &
+      - name: Netlify CLI
+        # You may pin to the exact commit or the version.
+        # uses: South-Paw/action-netlify-cli@0e5db3233380b841d6e0dfd3b1eef306c6c79735
+        uses: South-Paw/action-netlify-cli@2.0.0
+        with:
+          # Any command from https://cli.netlify.com/commands (without the `netlify` prefix) and its arguments (e.g. `deploy --json --dir "./public" --message "Hello world!"`
+          args: serve
+          
 
       - name: Wait for Netlify server to be ready
         run: |
