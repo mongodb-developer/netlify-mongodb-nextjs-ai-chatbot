@@ -1,6 +1,8 @@
 # Netlify, Next JS + MongoDB Atlas, powered by Open AI chatbot.
 > Build and customize your own ChatGPT-like web app using Next.js, MongoDB Atlas and the OpenAI API. The provided code serves as a foundation, and you can customize it to fit your specific use case. The chatbot is contextual to your vector store operated by MongoDB, which serves as message and history repository for your chats.
 
+![main(https://github.com/mongodb-developer/netlify-mongodb-nextjs-ai-chatbot/actions/workflows/main.yml/badge.svg)
+
 <img alt="Screenshot" src="./public/img/screenshot.png" height="75%" width="75%"/>
 
 ## One click deploy
