@@ -35,3 +35,10 @@ jobs:
         run: npm run cypress:run
         env:
           CI: true
+
+      - name: Upload Cypress screenshots
+        if: failure() # Only upload screenshots if the job failed
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/
