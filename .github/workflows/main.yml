@@ -12,26 +12,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18' # or the version required by netlify-cli
-
-   
+          node-version: '18' # Ensure this matches the version required by your Netlify CLI
 
       - name: Install project dependencies
         run: npm install
 
-      - name: Netlify CLI
-        # You may pin to the exact commit or the version.
-        # uses: South-Paw/action-netlify-cli@0e5db3233380b841d6e0dfd3b1eef306c6c79735
-        uses: South-Paw/action-netlify-cli@2.0.0
-        with:
-          # Any command from https://cli.netlify.com/commands (without the `netlify` prefix) and its arguments (e.g. `deploy --json --dir "./public" --message "Hello world!"`
-          args: serve
-          
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Start Netlify server in the background
+        run: netlify serve &> /dev/null &
+        shell: bash
 
       - name: Wait for Netlify server to be ready
         run: |
           until curl --output /dev/null --silent --head --fail http://localhost:8888; do
-            printf '.'
+            echo "Waiting for Netlify server..."
             sleep 5
           done
 
